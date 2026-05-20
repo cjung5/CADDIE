@@ -1,5 +1,5 @@
 :root {
-  --color-primary: #129754;;
+  --color-primary: #3bb578;;
   --color-primary-hover: #288e59;
   --color-primary-soft: #e7eee9;
   --color-accent-olive: #0bca1b;
@@ -9,10 +9,31 @@
   --color-name-hover: #0aeb68;
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   font-family: 'Noto Sans', 'Google Sans', sans-serif;
   color: #1f1f1f;
   background: #ffffff;
+  -webkit-text-size-adjust: 100%;
+}
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+}
+
+.title, h1, h2, h3, h4 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .publication-title,
@@ -332,6 +353,8 @@ figure.image figcaption {
 
 .table-container {
   margin: 1rem 0 2rem 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table {
@@ -455,16 +478,85 @@ figure.image figcaption {
 }
 
 @media screen and (max-width: 768px) {
+  .section {
+    padding: 2rem 1rem;
+  }
+
+  .hero-body {
+    padding: 2rem 1rem !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .columns {
+    margin: 0 !important;
+    display: block !important;
+  }
+
+  .column {
+    padding: 0.4rem 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex: none !important;
+  }
+
+  .column.is-four-fifths,
+  .column.is-half {
+    width: 100% !important;
+  }
+
   .publication-title {
-    font-size: 1.5rem !important;
+    font-size: 1.4rem !important;
+  }
+
+  .title-break {
+    display: none;
+  }
+
+  .subtitle.venue {
+    font-size: 0.95rem;
+  }
+
+  .publication-authors {
+    font-size: 0.95rem;
+  }
+
+  .publication-authors .author-block {
+    display: inline-block;
+    margin: 0.15rem 0.3rem;
+  }
+
+  .publication-authors.affiliations {
+    font-size: 0.85rem;
+  }
+
+  .title.is-3 {
+    font-size: 1.5rem;
   }
 
   .key-stats {
     gap: 1.2rem;
   }
 
+  .stat-block {
+    min-width: 100px;
+  }
+
   .stat-number {
     font-size: 1.6rem;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+  }
+
+  .tagline {
+    font-size: 0.95rem;
   }
 
   .dataset-summary {
@@ -478,5 +570,90 @@ figure.image figcaption {
 
   .ds-chip strong {
     font-size: 1.1rem;
+  }
+
+  .dataset-tags {
+    font-size: 0.85rem;
+  }
+
+  .schema-image,
+  .method-image {
+    padding: 0.5rem;
+  }
+
+  .table {
+    font-size: 0.85rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.4rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  .table caption {
+    font-size: 0.82rem;
+    white-space: normal;
+  }
+
+  .video-placeholder {
+    padding: 2rem 0.5rem;
+  }
+
+  #BibTeX pre {
+    font-size: 0.72rem;
+    padding: 0.8rem;
+  }
+
+  .references li {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .section {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .hero-body {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .publication-title {
+    font-size: 1.15rem !important;
+    line-height: 1.25;
+  }
+
+  .key-stats {
+    gap: 0.6rem;
+  }
+
+  .stat-block {
+    min-width: 88px;
+  }
+
+  .stat-number {
+    font-size: 1.35rem;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+  }
+
+  .ds-chip {
+    padding: 0.4rem 0.6rem;
+    min-width: 60px;
+  }
+
+  .ds-chip strong {
+    font-size: 1rem;
+  }
+
+  .challenge-item .image img {
+    height: 200px;
+  }
+
+  .title.is-3 {
+    font-size: 1.3rem;
   }
 }

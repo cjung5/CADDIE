@@ -2,47 +2,38 @@
 
 Project page for **CADDIE: Compact Adaptive Detection-Driven Inference for Real-Time Golf Club Pose Estimation** (CVsports Workshop @ CVPR 2026).
 
-Live page: <https://cjung5.github.io/CADDIE/> (after GitHub Pages is enabled — see below).
+Live: <https://cjung5.github.io/CADDIE/>
 
-## Repository layout
+## Layout
 
 ```
 .
-├── index.html              # the project page
-├── README.md
-├── figure/                 # all images / figures used on the page
+├── index.html
+├── figure/                 # all images used on the page
 └── static/
-    ├── css/index.css       # custom styling on top of Bulma (loaded from CDN)
-    ├── js/                 # (currently empty)
-    ├── pdfs/CADDIE.pdf     # paper PDF served from the site
-    └── videos/             # drop a demo video here later
+    ├── css/index.css
+    ├── pdfs/CADDIE.pdf     # paper, linked from the Paper button
+    └── videos/             # drop a demo video here
 ```
 
 ## Local preview
 
-From this directory:
-
 ```bash
 python3 -m http.server 8000
+# open http://localhost:8000
 ```
 
-then open <http://localhost:8000>.
+## Deploy on GitHub Pages
 
-## Publishing to GitHub Pages
+1. Push these files to the **root** of <https://github.com/cjung5/CADDIE> on the `main` branch.
+2. **Settings → Pages → Source: Deploy from a branch → Branch: `main` / `/ (root)`**.
+3. Wait ~1 minute, then visit <https://cjung5.github.io/CADDIE/>.
 
-1. Push the contents of this folder to the **root** of the `main` branch of
-   <https://github.com/cjung5/CADDIE>.
-2. On GitHub: **Settings → Pages → Build and deployment**
-   - Source: *Deploy from a branch*
-   - Branch: `main` / folder: `/ (root)`
-3. Wait ~1 min and visit <https://cjung5.github.io/CADDIE/>.
+## Adding a demo video
 
-## Adding a demo video later
-
-1. Drop the file at `static/videos/caddie_demo.mp4`.
-2. In `index.html`, find the `<!-- ===== VIDEO (placeholder) ===== -->` block
-   and uncomment the `<video>` element (the poster currently points to `figure/teaser.png`).
+1. Save it as `static/videos/caddie_demo.mp4`.
+2. In `index.html`, find the Video section and uncomment the `<video>` block.
 
 ## Credits
 
-Template adapted from the [Nerfies](https://github.com/nerfies/nerfies.github.io) project page (CC BY-SA 4.0).
+Template adapted from [Nerfies](https://github.com/nerfies/nerfies.github.io) (CC BY-SA 4.0).

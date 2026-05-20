@@ -1,0 +1,482 @@
+:root {
+  --color-primary: #129754;;
+  --color-primary-hover: #288e59;
+  --color-primary-soft: #e7eee9;
+  --color-accent-olive: #0bca1b;
+  --color-accent-gold: #D9AC42;
+  --color-cream: #f6f2e9;
+  --color-name: #056c35;
+  --color-name-hover: #0aeb68;
+}
+
+body {
+  font-family: 'Noto Sans', 'Google Sans', sans-serif;
+  color: #1f1f1f;
+  background: #ffffff;
+}
+
+.publication-title,
+.title,
+.subtitle {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+}
+
+.publication-title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 1.6rem !important;
+}
+
+.subtitle.venue {
+  color: #777;
+  font-weight: 500;
+  margin-top: 0.4rem;
+  margin-bottom: 1.6rem;
+}
+
+.publication-authors {
+  margin-bottom: 0.4rem;
+}
+
+.publication-authors .author-block {
+  margin: 0 0.4rem;
+}
+
+.publication-authors a {
+  color: var(--color-name);
+  text-decoration: none;
+}
+
+.publication-authors a:hover {
+  color: var(--color-name-hover);
+  text-decoration: underline;
+}
+
+.publication-authors.affiliations {
+  color: #555;
+  margin-bottom: 1.6rem;
+}
+
+.publication-links {
+  margin-top: 1.2rem;
+}
+
+.publication-links .button {
+  background-color: var(--color-primary);
+  border: none;
+  padding: 0.4rem 1.4rem;
+}
+
+.publication-links .button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.hero.teaser .hero-body {
+  padding-top: 0;
+}
+
+.key-stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  margin: 0.5rem 0 1.5rem 0;
+}
+
+.stat-block {
+  text-align: center;
+  min-width: 140px;
+}
+
+.stat-number {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 0.2rem;
+}
+
+.tagline {
+  font-size: 1.05rem;
+  color: #333;
+  margin: 0 0 1.8rem 0;
+}
+
+.teaser-image img {
+  border-radius: 6px;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
+}
+
+figure.image figcaption {
+  text-align: center;
+  color: #555;
+  font-size: 0.9rem;
+  margin-top: 0.6rem;
+}
+
+.section {
+  padding: 3rem 1.5rem;
+}
+
+.section.section-alt {
+  background-color: var(--color-cream);
+  border-top: 1px solid #ece7d8;
+  border-bottom: 1px solid #ece7d8;
+}
+
+.title.is-3 {
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.content p {
+  line-height: 1.7;
+}
+
+.content ul {
+  margin-top: 0.4rem;
+}
+
+.content ul li {
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
+}
+
+.challenge-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.challenge-item {
+  background-color: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 6px;
+  padding: 0.9rem;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.challenge-item .image {
+  margin: 0 0 0.7rem 0;
+}
+
+.challenge-item .image img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.challenge-title {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0 0 0.4rem 0;
+}
+
+.challenge-item p {
+  font-size: 0.88rem;
+  color: #444;
+  line-height: 1.45;
+  margin: 0;
+}
+
+@media screen and (max-width: 900px) {
+  .challenge-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .challenge-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.schema-image {
+  max-width: 720px;
+  margin: 0 auto 2rem auto;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+
+.viewpoint-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.viewpoint-caption {
+  margin-top: 0.3rem !important;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.figure-caption {
+  text-align: center;
+  color: #555;
+  font-size: 0.9rem;
+  margin-top: 0.6rem;
+}
+
+.dataset-figures .dataset-figure {
+  display: flex;
+  flex-direction: column;
+}
+
+.dataset-figures .dataset-figure-frame {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.dataset-figures .dataset-figure-frame > img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.viewpoint-pair.dataset-figure-frame {
+  gap: 0.6rem;
+}
+
+.viewpoint-pair .viewpoint-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+}
+
+.viewpoint-pair .viewpoint-figure img {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.viewpoint-pair .viewpoint-caption {
+  flex-shrink: 0;
+  margin-top: 0.25rem !important;
+}
+
+@media screen and (max-width: 768px) {
+  .dataset-figures .dataset-figure-frame {
+    height: 170px;
+  }
+}
+
+.dataset-summary {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.ds-chip {
+  background-color: #ffffff;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  text-align: center;
+  min-width: 90px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.ds-chip strong {
+  display: block;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 1.4rem;
+  color: var(--color-primary);
+}
+
+.ds-chip span {
+  display: block;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.dataset-tags {
+  color: #555;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.method-image {
+  margin-bottom: 1.5rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+
+.table-container {
+  margin: 1rem 0 2rem 0;
+}
+
+.table {
+  background-color: #ffffff;
+}
+
+.table caption {
+  caption-side: bottom;
+  text-align: center;
+  color: #555;
+  font-size: 0.9rem;
+  padding-top: 0.6rem;
+}
+
+.table thead th {
+  background-color: #f2f2f2;
+  text-align: center;
+}
+
+.results-table td,
+.results-table th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.results-table td:first-child {
+  text-align: left;
+}
+
+.results-table .best-row {
+  background-color: var(--color-primary-soft);
+}
+
+.results-table .best-row td {
+  border-top: 2px solid var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.smoothing-table td,
+.smoothing-table th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.smoothing-table td:first-child {
+  text-align: left;
+}
+
+.smoothing-table .delta-up {
+  color: var(--color-accent-olive);
+  font-weight: 600;
+}
+
+.smoothing-table .delta-down {
+  color: #d12828;
+  font-weight: 600;
+}
+
+.per-keypoint {
+  margin: 1rem 0 2rem 0;
+  font-size: 1rem;
+}
+
+.per-keypoint .vs-line {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.video-placeholder {
+  background-color: #f4f4f4;
+  border: 1px dashed #cccccc;
+  border-radius: 6px;
+  padding: 3rem 1rem;
+}
+
+.video-placeholder video {
+  width: 100%;
+  border-radius: 4px;
+}
+
+#BibTeX pre {
+  background-color: #1f1f1f;
+  color: #f3f3f3;
+  border-radius: 6px;
+  padding: 1.2rem;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+#BibTeX code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.references li {
+  margin-bottom: 0.7rem;
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
+.references a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.footer {
+  background-color: #fafafa;
+  border-top: 1px solid #eee;
+  padding: 2rem 1.5rem;
+}
+
+.footer p {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .publication-title {
+    font-size: 1.5rem !important;
+  }
+
+  .key-stats {
+    gap: 1.2rem;
+  }
+
+  .stat-number {
+    font-size: 1.6rem;
+  }
+
+  .dataset-summary {
+    gap: 0.5rem;
+  }
+
+  .ds-chip {
+    padding: 0.5rem 0.8rem;
+    min-width: 70px;
+  }
+
+  .ds-chip strong {
+    font-size: 1.1rem;
+  }
+}

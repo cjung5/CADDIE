@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+        content="CADDIE: a compact, real-time markerless framework for golf club pose estimation. CVsports Workshop @ CVPR 2026.">
+  <meta name="keywords" content="CADDIE, golf, pose estimation, keypoint, real-time, ConvNeXt, RetinaNet, CVPR 2026, CVsports">
+
+  <title>CADDIE: Compact Adaptive Detection-Driven Inference for Real-Time Golf Club Pose Estimation</title>
+
+  <link rel="icon" type="image/png" href="figure/profile.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">
+            CADDIE: Compact Adaptive Detection-Driven<br>
+            Inference for Real-Time Golf Club Pose Estimation
+          </h1>
+          <h2 class="subtitle is-5 venue">CVsports Workshop&nbsp;@&nbsp;CVPR&nbsp;2026</h2>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="mailto:Changsoo.Jung@colostate.edu">Changsoo Jung</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="mailto:Fan.Yang@fujitsu.com">Fan Yang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="mailto:Nathaniel.Blanchard@colostate.edu">Nathaniel Blanchard</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="mailto:Anthony.Wong@fujitsu.com">Hon Yung Wong</a><sup>1</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-authors affiliations">
+            <span class="author-block"><sup>1</sup>Fujitsu Research of America</span>
+            <span class="author-block"><sup>2</sup>Colorado State University</span>
+          </div>
+
+          <div class="publication-links">
+            <span class="link-block">
+              <a href="static/pdfs/CADDIE.pdf" target="_blank"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>Paper</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="key-stats">
+        <div class="stat-block">
+          <div class="stat-number">14.3M</div>
+          <div class="stat-label">parameters</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number">69 FPS</div>
+          <div class="stat-label">end-to-end inference</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number">88.52%</div>
+          <div class="stat-label">PCK@5px</div>
+        </div>
+      </div>
+      <p class="has-text-centered tagline">
+        <strong>Best of every world &mdash; accuracy, speed, size.</strong><br>
+        2&times; smaller than HRNet-W32 &nbsp;&middot;&nbsp; 6&times; smaller than ViTPose-B
+      </p>
+      <figure class="image teaser-image">
+        <img src="figure/teaser.png" alt="CADDIE qualitative teaser">
+        <figcaption>
+          <strong>Figure 1.</strong> CADDIE estimates a universal 5-keypoint
+          schema (<em>grip, shaft, neck, head-in, head-out</em>) across a full
+          swing sequence in real time.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Golf performance depends on precise coordination between the player and the
+            club. Most vision systems focus on body pose, missing the club motion needed
+            to analyze swing speed, trajectory, and carry-at-impact. We address this with
+            <strong>CADDIE</strong>, a compact markerless two-stage framework tailored to
+            thin elongated geometry, motion blur, and self-occlusion in golf club pose
+            estimation.
+          </p>
+          <p><strong>Key contributions:</strong></p>
+          <ul>
+            <li>
+              <strong>GolfClub dataset</strong> &mdash; 72K frames, 7 subjects,
+              6 locations, 3 club types (driver / wood / iron) with a universal
+              five-keypoint schema.
+            </li>
+            <li>
+              <strong>CADDIE architecture</strong> &mdash; only 14.3M params
+              (9.5M detection + 4.8M pose) running at 69 FPS, outperforming
+              HRNet (28.6M) and ViTPose (90M).
+            </li>
+            <li>
+              <strong>Adaptive temporal smoothing</strong> &mdash; scales
+              69&nbsp;&rarr;&nbsp;238 FPS with &lt;1% accuracy loss.
+            </li>
+          </ul>
+          <p>
+            CADDIE achieves <strong>88.52% PCK@5px</strong>, a leap over
+            HRNet (72.90%) and ViTPose (42.17%).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Challenges in Golf Club Pose</h2>
+
+    <div class="challenge-grid">
+      <div class="challenge-item">
+        <figure class="image">
+          <img src="figure/motion_blur.png" alt="Motion blur">
+        </figure>
+        <h3 class="challenge-title">Motion Blur</h3>
+        <p>Fast swing speeds combined with low shutter speeds or dim lighting smear the club into ghost-like trails across frames.</p>
+      </div>
+      <div class="challenge-item">
+        <figure class="image">
+          <img src="figure/self_occlusion.png" alt="Self-occlusion">
+        </figure>
+        <h3 class="challenge-title">Self-Occlusion</h3>
+        <p>The shaft is repeatedly hidden by the player's hands and body.</p>
+      </div>
+      <div class="challenge-item">
+        <figure class="image">
+          <img src="figure/limited_viewpoint.png" alt="Limited viewpoint">
+        </figure>
+        <h3 class="challenge-title">Limited Viewpoint</h3>
+        <p>Most prior work tracks the club from a single front view, missing the head-face angle essential for the club face at impact.</p>
+      </div>
+      <div class="challenge-item">
+        <figure class="image">
+          <img src="figure/single_club_type.png" alt="Single club type">
+        </figure>
+        <h3 class="challenge-title">Single Club Type</h3>
+        <p>Existing studies evaluate on one club (typically a driver or an iron).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">The GolfClub Dataset</h2>
+
+    <div class="dataset-summary">
+      <div class="ds-chip"><strong>72K</strong><span>frames</span></div>
+      <div class="ds-chip"><strong>7</strong><span>subjects</span></div>
+      <div class="ds-chip"><strong>6</strong><span>locations</span></div>
+      <div class="ds-chip"><strong>3</strong><span>club types</span></div>
+      <div class="ds-chip"><strong>2</strong><span>viewpoints</span></div>
+    </div>
+
+    <p class="has-text-centered dataset-tags">
+      Indoor &amp; outdoor &nbsp;&middot;&nbsp; subject-wise split with no leakage
+      &nbsp;&middot;&nbsp; multi-camera (Baumer, GoPro, iPhone)
+    </p>
+
+    <figure class="image schema-image">
+      <img src="figure/keypoint_schema.png" alt="Universal 5-keypoint schema">
+      <figcaption>
+        <strong>Figure 2.</strong> Universal 5-keypoint schema
+        (grip, shaft, neck, head-in, head-out).
+      </figcaption>
+    </figure>
+
+    <div class="columns is-centered dataset-figures">
+      <div class="column is-half">
+        <figure class="image dataset-figure">
+          <div class="dataset-figure-frame">
+            <img src="figure/club_types.png" alt="Three club types: driver, wood, iron">
+          </div>
+          <figcaption>
+            <strong>Figure 3.</strong> Three club types in GolfClub &mdash;
+            driver, wood, iron &mdash; one schema for all.
+          </figcaption>
+        </figure>
+      </div>
+      <div class="column is-half">
+        <div class="dataset-figure">
+          <div class="dataset-figure-frame viewpoint-pair">
+            <figure class="image viewpoint-figure">
+              <img src="figure/front_view.png" alt="Front view">
+              <figcaption class="viewpoint-caption">Front</figcaption>
+            </figure>
+            <figure class="image viewpoint-figure">
+              <img src="figure/headface_view.png" alt="Head-face view">
+              <figcaption class="viewpoint-caption">Head-face</figcaption>
+            </figure>
+          </div>
+          <p class="figure-caption">
+            <strong>Figure 4.</strong> Front and head-face viewpoints provide
+            complementary information for the club-face angle at impact.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <ul>
+        <li>
+          <strong>Bounding-box set</strong> &mdash; all 72,012 in-house frames
+          + 11,384 license-free Pexels frames. Pexels footage broadens detection
+          coverage across unconstrained backgrounds and camera setups.
+        </li>
+        <li>
+          <strong>Keypoint set</strong> &mdash; the 72,012 frames carry the full
+          universal 5-keypoint schema (grip &rarr; shaft &rarr; neck &rarr;
+          head-in &rarr; head-out), applied consistently to drivers, woods,
+          and irons.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
+
+    <figure class="image method-image">
+      <img src="figure/architecture.svg" alt="CADDIE two-stage pipeline">
+      <figcaption>
+        <strong>Figure 5.</strong> The CADDIE pipeline (14.3M total &mdash;
+        9.5M detection + 4.8M pose). Stage 1 detects the club bounding box;
+        Stage 2 estimates 5 keypoints on a 360&times;360 crop with parallel
+        heatmap and sub-pixel offset heads.
+      </figcaption>
+    </figure>
+
+    <div class="content has-text-justified">
+      <p><strong>Two-stage top-down pipeline:</strong></p>
+      <ul>
+        <li>
+          <strong>Stage 1 &mdash; Detection.</strong>
+          ConvNeXtV2-Atto&nbsp;[1] + FPN + RetinaNet&nbsp;[2] head
+          (9.5M params, 8.4&nbsp;ms).
+        </li>
+        <li>
+          <strong>Stage 2 &mdash; Pose.</strong>
+          ConvNeXtV2-Atto&nbsp;[1] + FPN with parallel heatmap + offset heads
+          on a 360&times;360 crop (4.8M params, 4.0&nbsp;ms). Sub-pixel
+          keypoint extraction via argmax + offset refinement.
+        </li>
+        <li>
+          <strong>Losses.</strong>
+          Focal + EIoU bounding-box regression (Stage 1);
+          Gaussian heatmap MSE + L1 offset (Stage 2).
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Baseline comparison on the GolfClub test set
+          (6,123 frames). PCK / mean error in 360&times;360 GT-crop space;
+          &dagger; indicates GT bounding boxes. CADDIE is best in both PCK
+          and mean error.
+        </caption>
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Params</th>
+            <th>FPS</th>
+            <th>PCK@5px</th>
+            <th>Mean Err</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>YOLO26m-pose [3]</td><td>21.5M</td><td>120.4</td><td>29.25%</td><td>26.29 px</td></tr>
+          <tr><td>YOLO8m-pose [4]</td><td>25.9M</td><td>153.7</td><td>24.02%</td><td>45.79 px</td></tr>
+          <tr><td>YOLO26 two-stage</td><td>41.9M</td><td>60.0</td><td>73.03%</td><td>5.28 px</td></tr>
+          <tr><td>HRNet-W32 [5]</td><td>28.6M</td><td>2.8</td><td>72.90%</td><td>19.55 px</td></tr>
+          <tr><td>ViTPose-B&dagger; [6]</td><td>90.0M</td><td>47.3</td><td>42.17%</td><td>16.34 px</td></tr>
+          <tr class="best-row">
+            <td><strong>CADDIE (ours)</strong></td>
+            <td><strong>14.3M</strong></td>
+            <td>69.0</td>
+            <td><strong>88.52%</strong></td>
+            <td><strong>3.87 px</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="content has-text-centered per-keypoint">
+      <p>
+        <strong>Lowest error on every keypoint (full-image px):</strong><br>
+        Grip <strong>1.06</strong> &middot; Shaft <strong>1.83</strong>
+        &middot; Neck <strong>1.78</strong> &middot; Head-in <strong>1.50</strong>
+        &middot; Head-out <strong>1.82</strong>
+      </p>
+      <p class="vs-line">
+        vs. HRNet Head-in 29.13 px (<strong>19.42&times; worse</strong>)
+        &nbsp;&middot;&nbsp;
+        vs. ViTPose Head-out 19.39 px (<strong>10.7&times; worse</strong>)
+      </p>
+    </div>
+
+    <figure class="image">
+      <img src="figure/qualitative_comparison.png"
+           alt="Qualitative comparison with staged YOLO 26">
+      <figcaption>
+        <strong>Figure 6.</strong> Qualitative comparison between CADDIE
+        (ours) and staged YOLO&nbsp;26.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Adaptive Temporal Smoothing</h2>
+
+    <div class="content has-text-justified">
+      <p>
+        Stage 1 dominates the latency budget. We exploit the temporal smoothness
+        of bounding boxes during a swing by running detection every
+        <em>N</em>-th frame and interpolating in between:
+      </p>
+      <ul>
+        <li>
+          <strong>Multi-level interpolation</strong> &mdash; Linear &rarr;
+          Quadratic refinement &rarr; Cubic Hermite fallback when oscillation
+          is detected.
+        </li>
+        <li>
+          <strong>Stationarity detector</strong> &mdash; locks frames during
+          the address phase to prevent drift.
+        </li>
+        <li>
+          <strong>Per-frame Kalman + EMA</strong> &mdash; smooths box centers
+          (Kalman) and dimensions (EMA) separately.
+        </li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth smoothing-table">
+        <caption>
+          <strong>Table 2.</strong> Speed&ndash;accuracy trade-off with adaptive
+          smoothing. &Delta; reports the PCK@5px change relative to N&nbsp;=&nbsp;1
+          (negative&nbsp;=&nbsp;drop).
+        </caption>
+        <thead>
+          <tr>
+            <th>Detection interval</th>
+            <th>FPS</th>
+            <th>PCK@5px</th>
+            <th>&Delta; vs N&nbsp;=&nbsp;1</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>N = 1</td>
+            <td><strong>69</strong></td>
+            <td><strong>88.52%</strong></td>
+            <td>&mdash;</td>
+          </tr>
+          <tr>
+            <td>N = 5</td>
+            <td><strong>185</strong></td>
+            <td><strong>88.55%</strong></td>
+            <td class="delta-up">+0.03</td>
+          </tr>
+          <tr>
+            <td>N = 10</td>
+            <td><strong>218</strong></td>
+            <td><strong>88.25%</strong></td>
+            <td class="delta-down">&minus;0.27</td>
+          </tr>
+          <tr>
+            <td>N = 20</td>
+            <td><strong>238</strong></td>
+            <td><strong>87.67%</strong></td>
+            <td class="delta-down">&minus;0.85</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Video</h2>
+    <div class="video-placeholder">
+      <!-- To add a video, drop the file into static/videos/ and uncomment below.
+      <video controls poster="figure/teaser.png">
+        <source src="static/videos/caddie_demo.mp4" type="video/mp4">
+      </video>
+      -->
+      <p class="has-text-centered has-text-grey">
+        <i class="fas fa-video"></i> &nbsp; Demo video coming soon.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Conclusions</h2>
+    <div class="content has-text-justified">
+      <ul>
+        <li>
+          <strong>Real-time, markerless golf club pose estimation</strong>
+          with a compact 14.3M two-stage design.
+        </li>
+        <li>
+          <strong>Universal 5-keypoint schema</strong> generalizes across
+          drivers, woods, and irons.
+        </li>
+        <li>
+          <strong>Outperforms HRNet, ViTPose, and YOLO</strong> on every
+          keypoint while running 25&times; faster than HRNet.
+        </li>
+        <li>
+          <strong>Adaptive temporal smoothing</strong> scales deployment from
+          69 &rarr; 238 FPS for live coaching.
+        </li>
+        <li>
+          <strong>Future:</strong> 3D extension via a multi-camera system
+          built on our 2D pose method.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@inproceedings{jung2026caddie,
+  title     = {CADDIE: Compact Adaptive Detection-Driven Inference for Real-Time Golf Club Pose Estimation},
+  author    = {Jung, Changsoo and Yang, Fan and Blanchard, Nathaniel and Wong, Hon Yung},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)},
+  year      = {2026},
+  note      = {CVsports Workshop}
+}</code></pre>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">References</h2>
+    <ol class="references">
+      <li>Woo, S., Debnath, S., Hu, R., Chen, X., Liu, Z., Kweon, I. S., &amp; Xie, S. (2023).
+        <em>ConvNeXt V2: Co-designing and scaling convnets with masked autoencoders.</em>
+        CVPR, pp. 16133&ndash;16142.</li>
+      <li>Lin, T. Y., Goyal, P., Girshick, R., He, K., &amp; Doll&aacute;r, P. (2017).
+        <em>Focal loss for dense object detection.</em> ICCV, pp. 2980&ndash;2988.</li>
+      <li>Jocher, G., &amp; Qiu, J. (2026). <em>Ultralytics YOLO26 (v26.0.0).</em>
+        <a href="https://github.com/ultralytics/ultralytics" target="_blank">github.com/ultralytics/ultralytics</a>.</li>
+      <li>Jocher, G., Chaurasia, A., &amp; Qiu, J. (2023). <em>Ultralytics YOLOv8 (v8.0.0).</em>
+        <a href="https://github.com/ultralytics/ultralytics" target="_blank">github.com/ultralytics/ultralytics</a>.</li>
+      <li>Wang, J., Sun, K., Cheng, T., Jiang, B., Deng, C., Zhao, Y., &hellip; &amp; Xiao, B. (2020).
+        <em>Deep high-resolution representation learning for visual recognition.</em>
+        IEEE TPAMI, 43(10), 3349&ndash;3364.</li>
+      <li>Xu, Y., Zhang, J., Zhang, Q., &amp; Tao, D. (2022).
+        <em>ViTPose: Simple vision transformer baselines for human pose estimation.</em>
+        NeurIPS, 35, 38571&ndash;38584.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">Acknowledgements</h2>
+    <p>
+      This work was conducted during a research internship at Fujitsu Research
+      of America. The authors thank the team at Fujitsu Research of America
+      for their support and valuable discussions throughout this project.
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        Website template adapted from
+        <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies</a>.
+        The source code is available under the
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC&nbsp;BY-SA&nbsp;4.0</a> license.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

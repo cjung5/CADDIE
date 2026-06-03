@@ -218,6 +218,15 @@ figure.image figcaption {
   .challenge-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .challenge-item .image img {
+    height: auto;
+    max-height: 220px;
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    object-fit: contain;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -650,7 +659,12 @@ figure.image figcaption {
   }
 
   .challenge-item .image img {
-    height: 200px;
+    height: auto;
+    max-height: 240px;
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    object-fit: contain;
   }
 
   .title.is-3 {
